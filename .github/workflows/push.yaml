@@ -1,6 +1,6 @@
 
 on:
-  pull_request:
+  push:
 
 jobs:
   prep: 
@@ -17,11 +17,14 @@ jobs:
       - run: echo demo
         id: my-step
       - run: |
-          mkdir -p ./output
-          echo "${{ toJSON(github)}}" > ./output/github.json
-          echo "${{ toJSON(steps)}}" > ./output/steps.json
-          echo "${{ toJSON(needs)}}" > ./output/needs.json
-      - uses: actions/upload-artifact@v3
-        with:
-          name: context
-          path: ./output
+          echo "${{ github.event.commits[0].message }}"
+
+  
+# mkdir -p ./output
+# echo "${{ toJSON(github)}}" > ./output/github.json
+# echo "${{ toJSON(steps)}}" > ./output/steps.json
+# echo "${{ toJSON(needs)}}" > ./output/needs.json
+# - uses: actions/upload-artifact@v3
+#   with:
+#     name: context
+#     path: ./output
